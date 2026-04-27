@@ -172,59 +172,130 @@ input.bad{border-color:rgba(239,68,68,.4)}
 <script>
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyIJMTB2j_Zm34uXox8owS12AFNJDldHAW45-82Gi_-pRMKCMT8ensWFRpPAhYjLPUz/exec';
 let dorsalOk = false;
-function pick(id,btn,val){btn.closest('.chips').querySelectorAll('.chip').forEach(b=>b.classList.remove('on'));btn.classList.add('on');document.getElementById(id).value=val}
-function resetD(){dorsalOk=false;document.getElementById('dmsg').className='dmsg';document.getElementById('dorsal').classList.remove('vld','bad')}
-function checkDorsal(){
-  const d=document.getElementById('dorsal').value.trim(),m=document.getElementById('dmsg'),b=document.getElementById('vBtn');
-  if(!d||+d<1||+d>99){m.className='dmsg no';m.textContent='⚠️ Número entre 1 y 99.';return}
-  b.disabled=true;b.textContent='...';m.className='dmsg';
-  (function(){
-    var cbName='cb'+Date.now();
-    window[cbName]=function(data){
-      b.disabled=false;b.textContent='Verificar';
-      var el=document.getElementById('jscb');if(el)el.remove();
-      delete window[cbName];
-      if(data.disponible){dorsalOk=true;m.className='dmsg ok';m.textContent='✅ Dorsal #'+d+' disponible.';document.getElementById('dorsal').classList.add('vld')}
-      else{dorsalOk=false;m.className='dmsg no';m.textContent='❌ Dorsal #'+d+' ocupado. Elige otro.';document.getElementById('dorsal').classList.add('bad')}
-    };
-    var s=document.createElement('script');s.id='jscb';
-    s.src=SCRIPT_URL+'?action=checkDorsal&dorsal='+d+'&callback='+cbName;
-    s.onerror=function(){b.disabled=false;b.textContent='Verificar';dorsalOk=true;m.className='dmsg ok';m.textContent='✅ Dorsal #'+d+' anotado. El DT confirmará.';delete window[cbName];};
-    document.head.appendChild(s);
-  })()
+
+function pick(id,btn,val){
+  btn.closest('.chips').querySelectorAll('.chip').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById(id).value=val;
 }
-function alert2(t){const el=document.getElementById('amsg');el.textContent=t;el.className='amsg e';el.scrollIntoView({behavior:'smooth',block:'center'})}
+
+function resetD(){
+  dorsalOk=false;
+  document.getElementById('dmsg').className='dmsg';
+  document.getElementById('dorsal').classList.remove('vld','bad');
+}
+
+function checkDorsal(){
+  const d=document.getElementById('dorsal').value.trim();
+  const m=document.getElementById('dmsg');
+  const b=document.getElementById('vBtn');
+  if(!d||+d<1||+d>99){m.className='dmsg no';m.textContent='⚠️ Número entre 1 y 99.';return;}
+  b.disabled=true; b.textContent='...'; m.className='dmsg';
+
+  // JSONP — única forma de evitar CORS con Apps Script desde GitHub Pages
+  const cbName='gfc_'+Date.now();
+  window[cbName]=function(data){
+    b.disabled=false; b.textContent='Verificar';
+    const el=document.getElementById('jscb'); if(el) el.remove();
+    delete window[cbName];
+    if(data.disponible){
+      dorsalOk=true; m.className='dmsg ok';
+      m.textContent='✅ Dorsal #'+d+' disponible.';
+      document.getElementById('dorsal').classList.add('vld');
+    } else {
+      dorsalOk=false; m.className='dmsg no';
+      m.textContent='❌ Dorsal #'+d+' ocupado. Elige otro.';
+      document.getElementById('dorsal').classList.add('bad');
+    }
+  };
+  const s=document.createElement('script');
+  s.id='jscb';
+  s.src=SCRIPT_URL+'?action=checkDorsal&dorsal='+encodeURIComponent(d)+'&callback='+cbName;
+  s.onerror=function(){
+    b.disabled=false; b.textContent='Verificar';
+    dorsalOk=true; m.className='dmsg ok';
+    m.textContent='✅ Dorsal #'+d+' anotado (verif. offline). El DT confirmará.';
+    delete window[cbName];
+  };
+  document.head.appendChild(s);
+}
+
+function alert2(t){
+  const el=document.getElementById('amsg');
+  el.textContent=t; el.className='amsg e';
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
 function enviar(){
   const g=id=>document.getElementById(id).value.trim();
-  const nombre=g('nombre'),cedula=g('cedula'),fn=g('fechaNac'),tel=g('telefono'),dorsal=g('dorsal'),pos=g('pos'),pie=g('pie'),talla=g('talla'),cnom=g('cnom'),ctel=g('ctel');
-  if(!nombre)return alert2('⚠️ El nombre completo es obligatorio.');
-  if(!cedula)return alert2('⚠️ La cédula es obligatoria.');
-  if(!fn)return alert2('⚠️ La fecha de nacimiento es obligatoria.');
-  if(!tel)return alert2('⚠️ El teléfono celular es obligatorio.');
-  if(!dorsal)return alert2('⚠️ Escribe un número de dorsal.');
-  if(!dorsalOk)return alert2('⚠️ Verifica la disponibilidad del dorsal primero.');
-  if(!pos)return alert2('⚠️ Selecciona tu posición.');
-  if(!pie)return alert2('⚠️ Selecciona tu pie dominante.');
-  if(!talla)return alert2('⚠️ Selecciona tu talla de uniforme.');
-  if(!cnom)return alert2('⚠️ El nombre del contacto de emergencia es obligatorio.');
-  if(!ctel)return alert2('⚠️ El teléfono de emergencia es obligatorio.');
+  const nombre=g('nombre'),cedula=g('cedula'),fn=g('fechaNac'),tel=g('telefono');
+  const dorsal=g('dorsal'),pos=g('pos'),pie=g('pie'),talla=g('talla');
+  const cnom=g('cnom'),ctel=g('ctel');
+
+  if(!nombre) return alert2('⚠️ El nombre completo es obligatorio.');
+  if(!cedula)  return alert2('⚠️ La cédula es obligatoria.');
+  if(!fn)      return alert2('⚠️ La fecha de nacimiento es obligatoria.');
+  if(!tel)     return alert2('⚠️ El teléfono celular es obligatorio.');
+  if(!dorsal)  return alert2('⚠️ Escribe un número de dorsal.');
+  if(!dorsalOk) return alert2('⚠️ Verifica la disponibilidad del dorsal primero.');
+  if(!pos)     return alert2('⚠️ Selecciona tu posición.');
+  if(!pie)     return alert2('⚠️ Selecciona tu pie dominante.');
+  if(!talla)   return alert2('⚠️ Selecciona tu talla de uniforme.');
+  if(!cnom)    return alert2('⚠️ El nombre del contacto de emergencia es obligatorio.');
+  if(!ctel)    return alert2('⚠️ El teléfono de emergencia es obligatorio.');
+
   const btn=document.getElementById('sbtn');
-  btn.disabled=true;btn.innerHTML='<span class="sp"></span>ENVIANDO...';
+  btn.disabled=true;
+  btn.innerHTML='<span class="sp"></span>ENVIANDO...';
   document.getElementById('amsg').className='amsg';
-  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({action:'registro',nombre,cedula,fechaNac:fn,telefono:tel,correo:g('correo'),ciudad:g('ciudad'),dorsal,posicion:pos,pie,talla,nombreCamiseta:g('nomCam'),contactoNombre:cnom,contactoTel:ctel,contactoTelAlt:g('ctel2'),timestamp:new Date().toISOString()})})
-  .then(()=>{
-    // no-cors: respuesta opaca, asumimos éxito si no hay error
+
+  const payload={
+    action:'registro', nombre, cedula, fechaNac:fn, telefono:tel,
+    correo:g('correo'), ciudad:g('ciudad'), dorsal, posicion:pos, pie, talla,
+    nombreCamiseta:g('nomCam'), contactoNombre:cnom, contactoTel:ctel,
+    contactoTelAlt:g('ctel2'), timestamp:new Date().toISOString()
+  };
+
+  // Usar iframe oculto para enviar sin CORS
+  const form=document.createElement('form');
+  form.method='POST';
+  form.action=SCRIPT_URL;
+  form.target='hidden_iframe';
+  form.style.display='none';
+
+  const input=document.createElement('input');
+  input.type='hidden';
+  input.name='data';
+  input.value=JSON.stringify(payload);
+  form.appendChild(input);
+
+  let iframe=document.getElementById('hidden_iframe');
+  if(!iframe){
+    iframe=document.createElement('iframe');
+    iframe.name='hidden_iframe';
+    iframe.id='hidden_iframe';
+    iframe.style.display='none';
+    document.body.appendChild(iframe);
+  }
+
+  iframe.onload=function(){
     exito(nombre,dorsal,pos,talla);
-  }).catch(()=>{btn.disabled=false;btn.innerHTML='⚽ REGISTRARME EN GALAZTIC FC';alert2('⚠️ Sin conexión al servidor. Contacta al DT.')})
+  };
+
+  document.body.appendChild(form);
+  form.submit();
+  form.remove();
 }
+
 function exito(nombre,dorsal,pos,talla){
   document.getElementById('fw').style.display='none';
-  const s=document.getElementById('succ');s.classList.add('show');
+  const s=document.getElementById('succ'); s.classList.add('show');
   document.getElementById('smsg').textContent=nombre.split(' ')[0]+', tu registro fue enviado. El cuerpo técnico te contactará pronto.';
   document.getElementById('res').innerHTML=r('👤','Nombre',nombre)+r('🔢','Dorsal','#'+dorsal)+r('📍','Posición',pos)+r('👕','Talla',talla);
-  s.scrollIntoView({behavior:'smooth'})
+  s.scrollIntoView({behavior:'smooth'});
 }
-function r(e,l,v){return '<div class="rrow"><span>'+e+' '+l+'</span><span>'+v+'</span></div>'}
+
+function r(e,l,v){return '<div class="rrow"><span>'+e+' '+l+'</span><span>'+v+'</span></div>';}
 </script>
 </body>
 </html>
