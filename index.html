@@ -11,15 +11,11 @@
 body{background:var(--n);font-family:'Barlow',sans-serif;color:var(--w);min-height:100vh;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 50px,rgba(245,197,24,.012) 50px,rgba(245,197,24,.012) 51px),repeating-linear-gradient(90deg,transparent,transparent 50px,rgba(245,197,24,.012) 50px,rgba(245,197,24,.012) 51px);pointer-events:none;z-index:0}
 .wrap{position:relative;z-index:1;max-width:620px;margin:0 auto;padding:0 16px 64px}
-
-/* HEADER */
 .hdr{text-align:center;padding:44px 0 0;animation:fd .6s ease both}
 .tn{font-family:'Bebas Neue';font-size:54px;letter-spacing:.07em;line-height:1}
 .tn span{color:var(--y)}
 .badge{display:inline-flex;align-items:center;gap:6px;background:var(--y);color:var(--n);font-family:'Barlow Condensed';font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 16px;border-radius:100px;margin:14px 0 26px}
 .gline{height:2px;background:linear-gradient(90deg,transparent,var(--y) 30%,var(--y) 70%,transparent);opacity:.5;margin-bottom:28px}
-
-/* SECCIONES */
 .slbl{display:flex;align-items:center;gap:9px;margin:26px 0 11px;padding-left:2px}
 .slbl .bar{width:3px;height:20px;background:var(--y);border-radius:2px;flex-shrink:0}
 .slbl span{font-family:'Bebas Neue';font-size:19px;letter-spacing:.1em}
@@ -33,49 +29,40 @@ label .r{color:var(--y);margin-left:2px}
 input[type=text],input[type=email],input[type=date],input[type=number]{background:var(--n3);border:1px solid rgba(255,255,255,.07);border-radius:8px;color:var(--w);font-family:'Barlow';font-size:14px;padding:11px 13px;width:100%;outline:none;-webkit-appearance:none;transition:border-color .2s,box-shadow .2s}
 input::placeholder{color:var(--g2)}
 input:focus{border-color:rgba(245,197,24,.5);box-shadow:0 0 0 3px rgba(245,197,24,.06)}
-input.vld{border-color:rgba(34,197,94,.4)!important}
-input.bad{border-color:rgba(239,68,68,.4)!important}
+input.vld{border-color:rgba(34,197,94,.45)!important}
+input.bad{border-color:rgba(239,68,68,.5)!important}
 .hint{font-size:11px;color:var(--g2)}
-
+/* Mensajes bajo cada campo */
+.fmsg{font-size:12px;font-weight:500;min-height:15px;line-height:1.4;display:none}
+.fmsg.ok{display:block;color:#4ade80}
+.fmsg.err{display:block;color:#f87171}
+.fmsg.warn{display:block;color:var(--y)}
 /* CHIPS */
 .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px}
 .chip{padding:8px 14px;background:var(--n3);border:1px solid rgba(255,255,255,.07);border-radius:7px;color:var(--g);font-family:'Barlow Condensed';font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
 .chip:hover{border-color:rgba(245,197,24,.3);color:var(--w)}
-.chip.on{background:var(--y);border-color:var(--y);color:var(--n);font-weight:700;box-shadow:0 2px 12px rgba(245,197,24,.2)}
-
-/* DORSAL — inline */
-.dorsal-wrap{position:relative}
-.dorsal-wrap input{padding-right:100px}
-.dorsal-status{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:12px;font-weight:600;white-space:nowrap;pointer-events:none}
-.ds-wait{color:var(--g)}
-.ds-ok{color:#4ade80}
-.ds-bad{color:#f87171}
-.ds-loading{color:var(--y)}
-.dorsal-msg{margin-top:6px;font-size:12px;font-weight:500;min-height:18px}
-
+.chip.on{background:var(--y);border-color:var(--y);color:var(--n);font-weight:700}
+/* DORSAL inline */
+.dw{position:relative}
+.dw input{padding-right:120px}
+.dbadge{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:11px;font-weight:700;font-family:'Barlow Condensed';letter-spacing:.04em;pointer-events:none;white-space:nowrap}
+.db-idle{color:var(--g2)} .db-spin{color:var(--y)} .db-ok{color:#4ade80} .db-bad{color:#f87171}
 /* FOTO */
 input[type=file]{display:none}
-.foto-drop{border:2px dashed rgba(245,197,24,.3);border-radius:12px;padding:28px 16px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;background:rgba(245,197,24,.03)}
-.foto-drop:hover,.foto-drop.over{border-color:rgba(245,197,24,.65);background:rgba(245,197,24,.07)}
-.foto-drop.filled{border-style:solid;border-color:rgba(34,197,94,.5);background:rgba(34,197,94,.04);padding:14px 16px}
-.foto-drop.err{border-style:solid!important;border-color:rgba(239,68,68,.6)!important;background:rgba(239,68,68,.04)!important}
-.foto-ico{font-size:34px;display:block;margin-bottom:8px}
-.foto-tit{font-family:'Barlow Condensed';font-size:15px;font-weight:700;letter-spacing:.05em;margin-bottom:4px}
-.foto-sub{font-size:12px;color:var(--g);line-height:1.5}
-/* Ocultar texto vacío cuando hay foto */
-.foto-drop.filled .foto-ico,
-.foto-drop.filled .foto-tit,
-.foto-drop.filled .foto-sub{display:none}
-/* Preview */
-.foto-prev{display:none;align-items:center;gap:14px;text-align:left}
-.foto-drop.filled .foto-prev{display:flex}
-.foto-thumb{width:66px;height:66px;border-radius:50%;object-fit:cover;border:3px solid rgba(34,197,94,.55);flex-shrink:0}
-.foto-ok p{font-size:14px;font-weight:600;color:#4ade80;margin-bottom:2px}
-.foto-ok small{font-size:11px;color:var(--g2)}
-.foto-chg{margin-top:5px;font-size:11px;color:var(--y);text-decoration:underline;cursor:pointer;display:inline-block}
-.foto-err-msg{margin-top:7px;font-size:12px;color:#f87171;font-weight:500;display:none}
-.foto-err-msg.show{display:block}
-
+.fdrop{border:2px dashed rgba(245,197,24,.3);border-radius:12px;padding:28px 16px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;background:rgba(245,197,24,.03)}
+.fdrop:hover,.fdrop.over{border-color:rgba(245,197,24,.65);background:rgba(245,197,24,.07)}
+.fdrop.filled{border-style:solid;border-color:rgba(34,197,94,.5);background:rgba(34,197,94,.04);padding:14px 16px}
+.fdrop.ferr{border-style:solid!important;border-color:rgba(239,68,68,.6)!important;background:rgba(239,68,68,.04)!important}
+.fico{font-size:34px;display:block;margin-bottom:8px}
+.ftit{font-family:'Barlow Condensed';font-size:15px;font-weight:700;letter-spacing:.05em;margin-bottom:4px}
+.fsub{font-size:12px;color:var(--g);line-height:1.5}
+.fdrop.filled .fico,.fdrop.filled .ftit,.fdrop.filled .fsub{display:none}
+.fprev{display:none;align-items:center;gap:14px;text-align:left}
+.fdrop.filled .fprev{display:flex}
+.fthumb{width:66px;height:66px;border-radius:50%;object-fit:cover;border:3px solid rgba(34,197,94,.55);flex-shrink:0}
+.fokp{font-size:14px;font-weight:600;color:#4ade80;margin-bottom:2px}
+.foks{font-size:11px;color:var(--g2)}
+.fchg{margin-top:5px;font-size:11px;color:var(--y);text-decoration:underline;cursor:pointer;display:inline-block}
 /* SUBMIT */
 .sarea{margin-top:22px}
 .amsg{display:none;padding:12px 16px;border-radius:9px;font-size:13px;font-weight:500;margin-bottom:12px;line-height:1.5}
@@ -84,20 +71,17 @@ input[type=file]{display:none}
 .sbtn:hover{background:var(--y2);transform:translateY(-1px);box-shadow:0 8px 28px rgba(245,197,24,.25)}
 .sbtn:disabled{opacity:.5;cursor:not-allowed;transform:none}
 .fnote{text-align:center;font-size:11px;color:var(--g2);margin-top:12px;line-height:1.6}
-
 /* ÉXITO */
 .succ{display:none;text-align:center;padding:56px 20px}
 .succ.show{display:block}
-.sicon{width:76px;height:76px;background:rgba(34,197,94,.1);border:2px solid rgba(34,197,94,.3);border-radius:50%;font-size:34px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center}
+.sico{width:76px;height:76px;background:rgba(34,197,94,.1);border:2px solid rgba(34,197,94,.3);border-radius:50%;font-size:34px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center}
 .succ h2{font-family:'Bebas Neue';font-size:34px;color:#4ade80;letter-spacing:.06em;margin-bottom:6px}
-.succ .gd{font-family:'Bebas Neue';font-size:19px;color:var(--y);letter-spacing:.08em;margin-bottom:10px}
+.sgd{font-family:'Bebas Neue';font-size:19px;color:var(--y);letter-spacing:.08em;margin-bottom:10px}
 .succ p{color:var(--g);font-size:14px;line-height:1.6}
 .res{margin-top:22px;padding:16px;background:var(--n2);border:1px solid rgba(245,197,24,.1);border-radius:11px;text-align:left}
 .rrow{display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05)}
 .rrow:last-child{border-bottom:none}
-.rrow span:first-child{color:var(--g)}
-.rrow span:last-child{font-weight:600}
-
+.rrow span:first-child{color:var(--g)} .rrow span:last-child{font-weight:600}
 @keyframes fd{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .sp{display:inline-block;width:14px;height:14px;border:2px solid rgba(0,0,0,.15);border-top-color:var(--n);border-radius:50%;animation:sk .7s linear infinite;vertical-align:middle;margin-right:6px}
@@ -115,88 +99,95 @@ input[type=file]{display:none}
 
   <div id="fw">
 
-    <!-- ── DATOS PERSONALES ── -->
+    <!-- DATOS PERSONALES -->
     <div class="slbl"><div class="bar"></div><span>👤 Datos Personales</span></div>
     <div class="card">
       <div class="g2">
+
         <div class="fld full">
           <label>Nombre Completo <span class="r">*</span></label>
           <input type="text" id="nombre" placeholder="Apellidos y nombres">
         </div>
+
         <div class="fld">
-          <label>Cédula / ID <span class="r">*</span></label>
-          <input type="text" id="cedula" placeholder="Ej: 1234567890">
+          <label>Cédula de Identidad <span class="r">*</span></label>
+          <input type="text" id="cedula" placeholder="Ej: 1712345678"
+                 maxlength="10" inputmode="numeric"
+                 oninput="cedulaInput()" onblur="cedulaBlur()">
+          <div class="fmsg" id="cedulaMsg"></div>
         </div>
+
         <div class="fld">
           <label>Fecha de Nacimiento <span class="r">*</span></label>
-          <input type="date" id="fechaNac">
+          <input type="date" id="fechaNac" onchange="fechaChange()">
+          <div class="fmsg" id="fechaMsg"></div>
         </div>
+
         <div class="fld">
           <label>Teléfono Celular <span class="r">*</span></label>
-          <input type="text" id="telefono" placeholder="Ej: 0991234567">
+          <input type="text" id="telefono" placeholder="Ej: 0991234567"
+                 maxlength="10" inputmode="numeric"
+                 oninput="telInput('telefono','telMsg')"
+                 onblur="telBlur('telefono','telMsg')">
+          <div class="fmsg" id="telMsg"></div>
         </div>
+
         <div class="fld">
           <label>Correo Electrónico</label>
-          <input type="email" id="correo" placeholder="ejemplo@gmail.com">
+          <input type="text" id="correo" placeholder="ejemplo@gmail.com"
+                 onblur="correoBlur()">
+          <div class="fmsg" id="correoMsg"></div>
         </div>
+
         <div class="fld full">
           <label>Ciudad / Barrio</label>
           <input type="text" id="ciudad" placeholder="Ej: Quito · La Floresta">
         </div>
+
       </div>
     </div>
 
-    <!-- ── FOTO (OBLIGATORIA) ── -->
+    <!-- FOTO OBLIGATORIA -->
     <div class="slbl"><div class="bar"></div><span>📸 Foto del Jugador</span></div>
     <div class="card">
       <div class="fld">
         <label>Foto de Perfil <span class="r">*</span></label>
-        <p class="hint" style="margin-bottom:10px">Se guardará en la carpeta del club en Google Drive</p>
-
-        <div class="foto-drop" id="fotoDrop"
+        <p class="hint" style="margin-bottom:10px">Se guardará en Google Drive · JPG, PNG o WEBP · máx 5 MB</p>
+        <div class="fdrop" id="fdrop"
              onclick="document.getElementById('fotoFile').click()"
              ondragover="fotoDrag(event,true)"
              ondragleave="fotoDrag(event,false)"
              ondrop="fotoDrop_(event)">
-
-          <span class="foto-ico">📷</span>
-          <div class="foto-tit">Toca o arrastra tu foto aquí</div>
-          <div class="foto-sub">JPG, PNG o WEBP · máx 5 MB</div>
-
-          <div class="foto-prev">
-            <img class="foto-thumb" id="fotoThumb" src="" alt="">
-            <div class="foto-ok">
-              <p>✅ Foto cargada</p>
-              <small id="fotoNombre"></small>
-              <span class="foto-chg"
-                    onclick="event.stopPropagation();document.getElementById('fotoFile').click()">
-                Cambiar foto
-              </span>
+          <span class="fico">📷</span>
+          <div class="ftit">Toca o arrastra tu foto aquí</div>
+          <div class="fsub">Recomendado: foto de frente, buena iluminación</div>
+          <div class="fprev">
+            <img class="fthumb" id="fthumb" src="" alt="">
+            <div>
+              <p class="fokp">✅ Foto cargada</p>
+              <span class="foks" id="fnombre"></span><br>
+              <span class="fchg" onclick="event.stopPropagation();document.getElementById('fotoFile').click()">Cambiar foto</span>
             </div>
           </div>
         </div>
-
-        <div class="foto-err-msg" id="fotoErrMsg">⚠️ La foto es obligatoria.</div>
+        <div class="fmsg err" id="fotoMsg">⚠️ La foto es obligatoria.</div>
         <input type="file" id="fotoFile" accept="image/jpeg,image/png,image/webp" onchange="cargarFoto(this)">
       </div>
     </div>
 
-    <!-- ── UNIFORME ── -->
+    <!-- UNIFORME -->
     <div class="slbl"><div class="bar"></div><span>👕 Uniforme</span></div>
     <div class="card">
 
-      <!-- DORSAL con validación inline -->
       <div class="fld" style="margin-bottom:16px">
         <label>Número de Dorsal <span class="r">*</span></label>
-        <div class="dorsal-wrap">
-          <input type="number" id="dorsal" placeholder="1 – 99" min="1" max="99"
-                 oninput="onDorsalInput()">
-          <span class="dorsal-status ds-wait" id="dorsalStatus"></span>
+        <div class="dw">
+          <input type="number" id="dorsal" placeholder="1 – 99" min="1" max="99" oninput="dorsalInput()">
+          <span class="dbadge db-idle" id="dbadge"></span>
         </div>
-        <div class="dorsal-msg" id="dorsalMsg"></div>
+        <div class="fmsg" id="dorsalMsg"></div>
       </div>
 
-      <!-- POSICIÓN -->
       <div class="fld" style="margin-bottom:16px">
         <label>Posición <span class="r">*</span></label>
         <div class="chips">
@@ -210,7 +201,6 @@ input[type=file]{display:none}
         <input type="hidden" id="pos">
       </div>
 
-      <!-- PIE -->
       <div class="fld" style="margin-bottom:16px">
         <label>Pie Dominante <span class="r">*</span></label>
         <div class="chips">
@@ -221,7 +211,6 @@ input[type=file]{display:none}
         <input type="hidden" id="pie">
       </div>
 
-      <!-- TALLA -->
       <div class="fld" style="margin-bottom:16px">
         <label>Talla Uniforme <span class="r">*</span></label>
         <p class="hint" style="margin-bottom:6px">Aplica para camiseta y pantaloneta</p>
@@ -236,7 +225,6 @@ input[type=file]{display:none}
         <input type="hidden" id="talla">
       </div>
 
-      <!-- NOMBRE CAMISETA -->
       <div class="fld">
         <label>Nombre en Camiseta</label>
         <input type="text" id="nomCam" placeholder="Apellido o apodo (máx 10)" maxlength="10">
@@ -244,7 +232,7 @@ input[type=file]{display:none}
       </div>
     </div>
 
-    <!-- ── CONTACTO EMERGENCIA ── -->
+    <!-- CONTACTO EMERGENCIA -->
     <div class="slbl"><div class="bar"></div><span>🚨 Contacto de Emergencia</span></div>
     <div class="card">
       <div class="g2">
@@ -254,11 +242,19 @@ input[type=file]{display:none}
         </div>
         <div class="fld">
           <label>Teléfono Principal <span class="r">*</span></label>
-          <input type="text" id="ctel" placeholder="Ej: 0991234567">
+          <input type="text" id="ctel" placeholder="Ej: 0991234567"
+                 maxlength="10" inputmode="numeric"
+                 oninput="telInput('ctel','ctelMsg')"
+                 onblur="telBlur('ctel','ctelMsg')">
+          <div class="fmsg" id="ctelMsg"></div>
         </div>
         <div class="fld">
           <label>Teléfono Alternativo</label>
-          <input type="text" id="ctel2" placeholder="Opcional">
+          <input type="text" id="ctel2" placeholder="Opcional"
+                 maxlength="10" inputmode="numeric"
+                 oninput="telInput('ctel2','ctel2Msg')"
+                 onblur="telBlur2('ctel2','ctel2Msg')">
+          <div class="fmsg" id="ctel2Msg"></div>
         </div>
       </div>
     </div>
@@ -272,269 +268,310 @@ input[type=file]{display:none}
 
   <!-- ÉXITO -->
   <div class="succ" id="succ">
-    <div class="sicon">✅</div>
+    <div class="sico">✅</div>
     <h2>¡Bienvenido!</h2>
-    <div class="gd">GALAZTIC F.C. · 2026</div>
+    <div class="sgd">GALAZTIC F.C. · 2026</div>
     <p id="smsg"></p>
     <div class="res" id="res"></div>
   </div>
 
 </div>
-
 <script>
-// ════════════════════════════════════════════════════
-// CONFIGURACIÓN — cambia la URL después de republicar
-// ════════════════════════════════════════════════════
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwNE90oLrrGJ5TSNPPnKWtMKa7LxJ68iw_hlhmyHbim3qlaDmvY2eiVsC4ktxY4nwbz/exec';
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbwNE90oLrrGJ5TSNPPnKWtMKa7LxJ68iw_hlhmyHbim3qlaDmvY2eiVsC4ktxY4nwbz/exec';
+let dorsalOk=false, fotoB64='', debT=null;
 
-// Estado global
-let dorsalOk   = false;   // true solo cuando el servidor confirmó disponibilidad
-let dorsalVal  = '';      // último dorsal verificado con éxito
-let fotoB64    = '';      // data:image/...;base64,...
-let debTimer   = null;    // timer para el debounce del dorsal
+/* ── HELPERS ── */
+function msg(id,txt,tipo){
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.textContent=txt;
+  el.className='fmsg'+(tipo?' '+tipo:'');
+}
+function st(id,estado){
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.classList.remove('vld','bad');
+  if(estado)el.classList.add(estado);
+}
 
-// ════════════════════════════════════════════════════
-// FOTO
-// ════════════════════════════════════════════════════
-function cargarFoto(input) {
-  const file = input.files[0];
-  if (file) procesarFoto(file);
+/* ══════════════════════════════════════════════
+   CÉDULA ECUATORIANA
+   - Bloquea letras en tiempo real
+   - Al llegar a 10 dígitos valida:
+     ① Provincia 01–24
+     ② Algoritmo módulo 10 (coeficientes 2,1,2,1,2,1,2,1,2)
+   ══════════════════════════════════════════════ */
+function cedulaInput(){
+  const inp=document.getElementById('cedula');
+  inp.value=inp.value.replace(/\D/g,'');          // eliminar letras
+  const v=inp.value;
+  st('cedula','');
+  if(!v){msg('cedulaMsg','','');return;}
+  if(v.length<10){msg('cedulaMsg',v.length+' / 10 dígitos','warn');return;}
+  _validarCedula(v);
 }
-function fotoDrag(e, over) {
-  e.preventDefault();
-  document.getElementById('fotoDrop').classList.toggle('over', over);
+function cedulaBlur(){
+  const v=document.getElementById('cedula').value;
+  if(v.length===10)_validarCedula(v);
 }
-function fotoDrop_(e) {
-  e.preventDefault(); fotoDrag(e, false);
-  const file = e.dataTransfer.files[0];
-  if (file) procesarFoto(file);
-}
-function procesarFoto(file) {
-  const errMsg = document.getElementById('fotoErrMsg');
-  const drop   = document.getElementById('fotoDrop');
-
-  if (!['image/jpeg','image/png','image/webp'].includes(file.type)) {
-    errMsg.textContent = '⚠️ Solo se aceptan imágenes JPG, PNG o WEBP.';
-    errMsg.classList.add('show'); return;
+function _validarCedula(v){
+  const prov=parseInt(v.substring(0,2),10);
+  if(prov<1||prov>24){
+    st('cedula','bad');
+    msg('cedulaMsg','❌ Provincia inválida (primeros 2 dígitos deben ser 01–24)','err');
+    return false;
   }
-  if (file.size > 5 * 1024 * 1024) {
-    errMsg.textContent = '⚠️ La foto no puede superar 5 MB.';
-    errMsg.classList.add('show'); return;
+  const coef=[2,1,2,1,2,1,2,1,2];
+  let suma=0;
+  for(let i=0;i<9;i++){let d=parseInt(v[i],10)*coef[i];if(d>=10)d-=9;suma+=d;}
+  const ver=(suma%10===0)?0:10-(suma%10);
+  if(ver!==parseInt(v[9],10)){
+    st('cedula','bad');
+    msg('cedulaMsg','❌ Cédula inválida — dígito verificador incorrecto','err');
+    return false;
   }
-  errMsg.classList.remove('show');
-  drop.classList.remove('err');
+  st('cedula','vld');
+  msg('cedulaMsg','✅ Cédula válida','ok');
+  return true;
+}
 
-  const reader = new FileReader();
-  reader.onload = ev => {
-    fotoB64 = ev.target.result;
-    document.getElementById('fotoThumb').src = fotoB64;
-    document.getElementById('fotoNombre').textContent =
-      file.name + ' · ' + (file.size/1024).toFixed(0) + ' KB';
+/* ══════════════════════════════════════════════
+   TELÉFONO
+   - Bloquea letras en tiempo real
+   - Máximo 10 dígitos (maxlength en HTML)
+   - Muestra progreso mientras escribe
+   - Al perder foco: exige exactamente 10
+   ══════════════════════════════════════════════ */
+function telInput(inpId,msgId){
+  const inp=document.getElementById(inpId);
+  inp.value=inp.value.replace(/\D/g,'');          // eliminar letras
+  const v=inp.value;
+  st(inpId,'');
+  if(!v){msg(msgId,'','');return;}
+  if(v.length<10){msg(msgId,v.length+' / 10 dígitos','warn');return;}
+  st(inpId,'vld');msg(msgId,'','');
+}
+function telBlur(inpId,msgId){
+  const v=document.getElementById(inpId).value;
+  if(!v)return;
+  if(v.length<10){st(inpId,'bad');msg(msgId,'❌ Debe tener exactamente 10 dígitos','err');}
+  else{st(inpId,'vld');msg(msgId,'','');}
+}
+function telBlur2(inpId,msgId){
+  // Alternativo es opcional — solo valida si tiene algo
+  const v=document.getElementById(inpId).value;
+  if(!v){st(inpId,'');msg(msgId,'','');return;}
+  telBlur(inpId,msgId);
+}
+
+/* ══════════════════════════════════════════════
+   FECHA DE NACIMIENTO
+   - min: hace 50 años  (no puede tener más de 50)
+   - max: hace  5 años  (no puede tener menos de 5)
+   - Muestra la edad calculada en verde
+   ══════════════════════════════════════════════ */
+(function fijarRango(){
+  const hoy=new Date();
+  const iso=d=>d.toISOString().split('T')[0];
+  const min=new Date(hoy.getFullYear()-50,hoy.getMonth(),hoy.getDate());
+  const max=new Date(hoy.getFullYear()-5, hoy.getMonth(),hoy.getDate());
+  const inp=document.getElementById('fechaNac');
+  if(inp){inp.min=iso(min);inp.max=iso(max);}
+})();
+
+function fechaChange(){
+  const v=document.getElementById('fechaNac').value;
+  if(!v){st('fechaNac','');msg('fechaMsg','','');return;}
+  const hoy=new Date(), nac=new Date(v+'T00:00:00');
+  let edad=hoy.getFullYear()-nac.getFullYear();
+  const dm=hoy.getMonth()-nac.getMonth();
+  if(dm<0||(dm===0&&hoy.getDate()<nac.getDate()))edad--;
+  if(edad<5){st('fechaNac','bad');msg('fechaMsg','❌ Edad mínima: 5 años','err');return;}
+  if(edad>50){st('fechaNac','bad');msg('fechaMsg','❌ Edad máxima: 50 años','err');return;}
+  st('fechaNac','vld');
+  msg('fechaMsg','✅ '+edad+' años','ok');
+}
+
+/* ══════════════════════════════════════════════
+   CORREO
+   - Campo opcional
+   - Solo valida al perder foco (onblur)
+   - Regex: debe tener @ y dominio con al menos 2 letras
+   ══════════════════════════════════════════════ */
+function correoBlur(){
+  const v=document.getElementById('correo').value.trim();
+  if(!v){st('correo','');msg('correoMsg','','');return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)){
+    st('correo','bad');
+    msg('correoMsg','❌ Formato inválido — debe ser usuario@dominio.com','err');
+  }else{
+    st('correo','vld');
+    msg('correoMsg','✅ Correo válido','ok');
+  }
+}
+
+/* ── FOTO ── */
+function cargarFoto(input){const f=input.files[0];if(f)_procesarFoto(f);}
+function fotoDrag(e,over){e.preventDefault();document.getElementById('fdrop').classList.toggle('over',over);}
+function fotoDrop_(e){e.preventDefault();fotoDrag(e,false);const f=e.dataTransfer.files[0];if(f)_procesarFoto(f);}
+function _procesarFoto(file){
+  const drop=document.getElementById('fdrop'),m=document.getElementById('fotoMsg');
+  if(!['image/jpeg','image/png','image/webp'].includes(file.type)){
+    m.textContent='⚠️ Solo JPG, PNG o WEBP.';m.className='fmsg err';return;
+  }
+  if(file.size>5*1024*1024){m.textContent='⚠️ Máx 5 MB.';m.className='fmsg err';return;}
+  m.className='fmsg';drop.classList.remove('ferr');
+  const r=new FileReader();
+  r.onload=ev=>{
+    fotoB64=ev.target.result;
+    document.getElementById('fthumb').src=fotoB64;
+    document.getElementById('fnombre').textContent=file.name+' · '+(file.size/1024).toFixed(0)+' KB';
     drop.classList.add('filled');
   };
-  reader.readAsDataURL(file);
+  r.readAsDataURL(file);
 }
 
-// ════════════════════════════════════════════════════
-// CHIPS
-// ════════════════════════════════════════════════════
-function pick(id, btn, val) {
-  btn.closest('.chips').querySelectorAll('.chip').forEach(b => b.classList.remove('on'));
-  btn.classList.add('on');
-  document.getElementById(id).value = val;
+/* ── CHIPS ── */
+function pick(id,btn,val){
+  btn.closest('.chips').querySelectorAll('.chip').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');document.getElementById(id).value=val;
 }
 
-// ════════════════════════════════════════════════════
-// DORSAL — validación automática con debounce 600 ms
-// Se dispara cada vez que el usuario escribe un número
-// entre 1 y 99. Consulta al Apps Script vía JSONP.
-// ════════════════════════════════════════════════════
-function onDorsalInput() {
-  clearTimeout(debTimer);
-  dorsalOk  = false;
-  dorsalVal = '';
-
-  const inp = document.getElementById('dorsal');
-  const st  = document.getElementById('dorsalStatus');
-  const msg = document.getElementById('dorsalMsg');
-  const val = inp.value.trim();
-
-  inp.classList.remove('vld','bad');
-  st.className  = 'dorsal-status';
-  msg.textContent = '';
-  msg.style.color = '';
-
-  if (!val || +val < 1 || +val > 99) {
-    st.textContent = val ? '⚠️ 1-99' : '';
-    st.classList.add('ds-wait');
-    return;
-  }
-
-  // Mostrar spinner mientras espera
-  st.textContent = '🔄 verificando...';
-  st.classList.add('ds-loading');
-
-  // Debounce de 600 ms — no llama al servidor en cada tecla
-  debTimer = setTimeout(() => verificarDorsal(val), 600);
+/* ── DORSAL — debounce 600 ms, JSONP ── */
+function dorsalInput(){
+  clearTimeout(debT);dorsalOk=false;
+  const inp=document.getElementById('dorsal'),badge=document.getElementById('dbadge');
+  const v=inp.value.trim();
+  inp.classList.remove('vld','bad');badge.className='dbadge db-idle';badge.textContent='';
+  msg('dorsalMsg','','');
+  if(!v||+v<1||+v>99){if(v)badge.textContent='⚠️ usa 1–99';return;}
+  badge.className='dbadge db-spin';badge.textContent='🔄 verificando...';
+  debT=setTimeout(()=>_checkDorsal(v),600);
 }
-
-function verificarDorsal(d) {
-  const inp = document.getElementById('dorsal');
-  const st  = document.getElementById('dorsalStatus');
-  const msg = document.getElementById('dorsalMsg');
-
-  const cb = 'gfc_' + Date.now();
-  window[cb] = function(data) {
-    const el = document.getElementById('jscb');
-    if (el) el.remove();
-    delete window[cb];
-
-    if (data.disponible) {
-      dorsalOk  = true;
-      dorsalVal = d;
-      inp.classList.add('vld');
-      st.className  = 'dorsal-status ds-ok';
-      st.textContent = '✅ libre';
-      msg.textContent = 'Dorsal #' + d + ' disponible ✅';
-      msg.style.color = '#4ade80';
-    } else {
-      dorsalOk  = false;
-      inp.classList.add('bad');
-      st.className  = 'dorsal-status ds-bad';
-      st.textContent = '❌ ocupado';
-      msg.textContent = 'Dorsal #' + d + ' ya está ocupado — elige otro.';
-      msg.style.color = '#f87171';
+function _checkDorsal(d){
+  const cb='gfc_'+Date.now();
+  window[cb]=function(data){
+    const el=document.getElementById('_jscb');if(el)el.remove();delete window[cb];
+    const inp=document.getElementById('dorsal'),badge=document.getElementById('dbadge');
+    if(data.disponible){
+      dorsalOk=true;inp.classList.add('vld');
+      badge.className='dbadge db-ok';badge.textContent='✅ disponible';
+      msg('dorsalMsg','','');
+    }else{
+      dorsalOk=false;inp.classList.add('bad');
+      badge.className='dbadge db-bad';badge.textContent='❌ ocupado';
+      msg('dorsalMsg','El dorsal #'+d+' ya está en uso — elige otro.','err');
     }
   };
-
-  const s = document.createElement('script');
-  s.id = 'jscb';
-  s.src = SCRIPT_URL + '?action=checkDorsal&dorsal=' + encodeURIComponent(d) + '&callback=' + cb;
-  s.onerror = function() {
-    // Sin conexión: aceptar y avisar
-    dorsalOk  = true;
-    dorsalVal = d;
-    const inp2 = document.getElementById('dorsal');
-    const st2  = document.getElementById('dorsalStatus');
-    const msg2 = document.getElementById('dorsalMsg');
-    inp2.classList.add('vld');
-    st2.className  = 'dorsal-status ds-ok';
-    st2.textContent = '✅ sin conexión';
-    msg2.textContent = 'Sin conexión al servidor — el DT confirmará el dorsal.';
-    msg2.style.color = '#f5c518';
-    delete window[cb];
+  const s=document.createElement('script');s.id='_jscb';
+  s.src=SCRIPT_URL+'?action=checkDorsal&dorsal='+encodeURIComponent(d)+'&callback='+cb;
+  s.onerror=function(){
+    dorsalOk=true;document.getElementById('dorsal').classList.add('vld');
+    const b=document.getElementById('dbadge');b.className='dbadge db-spin';b.textContent='⚠️ sin conexión';
+    msg('dorsalMsg','No se pudo verificar en línea — el DT confirmará.','warn');delete window[cb];
   };
   document.head.appendChild(s);
 }
 
-// ════════════════════════════════════════════════════
-// ALERTA
-// ════════════════════════════════════════════════════
-function alert2(txt) {
-  const el = document.getElementById('amsg');
-  el.textContent = txt;
-  el.className = 'amsg e';
-  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+/* ── ALERTA GENERAL ── */
+function alert2(txt){
+  const el=document.getElementById('amsg');el.textContent=txt;el.className='amsg e';
+  el.scrollIntoView({behavior:'smooth',block:'center'});
 }
 
-// ════════════════════════════════════════════════════
-// ENVIAR
-// El fetch con mode:no-cors SOLO puede enviar el body
-// como application/x-www-form-urlencoded.
-// El Apps Script lo recibe en e.parameter.data
-// ════════════════════════════════════════════════════
-function enviar() {
-  const g = id => document.getElementById(id).value.trim();
-  const nombre = g('nombre'), cedula = g('cedula'), fn = g('fechaNac'), tel = g('telefono');
-  const dorsal = g('dorsal'), pos = g('pos'), pie = g('pie'), talla = g('talla');
-  const cnom = g('cnom'), ctel = g('ctel');
+/* ══════════════════════════════════════════════
+   ENVIAR
+   ══════════════════════════════════════════════ */
+function enviar(){
+  const g=id=>document.getElementById(id).value.trim();
+  const nombre=g('nombre'),cedula=g('cedula'),fn=g('fechaNac'),tel=g('telefono');
+  const dorsal=g('dorsal'),pos=g('pos'),pie=g('pie'),talla=g('talla');
+  const cnom=g('cnom'),ctel=g('ctel'),correo=g('correo');
 
-  if (!nombre)   return alert2('⚠️ El nombre completo es obligatorio.');
-  if (!cedula)   return alert2('⚠️ La cédula es obligatoria.');
-  if (!fn)       return alert2('⚠️ La fecha de nacimiento es obligatoria.');
-  if (!tel)      return alert2('⚠️ El teléfono celular es obligatorio.');
+  if(!nombre) return alert2('⚠️ El nombre completo es obligatorio.');
 
-  // Foto obligatoria
-  if (!fotoB64) {
-    document.getElementById('fotoErrMsg').textContent = '⚠️ La foto es obligatoria.';
-    document.getElementById('fotoErrMsg').classList.add('show');
-    document.getElementById('fotoDrop').classList.add('err');
-    document.getElementById('fotoDrop').scrollIntoView({ behavior:'smooth', block:'center' });
+  // Cédula
+  if(!cedula)         return alert2('⚠️ La cédula es obligatoria.');
+  if(cedula.length<10)return alert2('⚠️ La cédula debe tener 10 dígitos.');
+  if(!_validarCedula(cedula))return;  // _validarCedula ya muestra el error en el campo
+
+  // Fecha
+  if(!fn) return alert2('⚠️ La fecha de nacimiento es obligatoria.');
+  const nac=new Date(fn+'T00:00:00'),hoy=new Date();
+  let edad=hoy.getFullYear()-nac.getFullYear();
+  const dm=hoy.getMonth()-nac.getMonth();
+  if(dm<0||(dm===0&&hoy.getDate()<nac.getDate()))edad--;
+  if(edad<5||edad>50) return alert2('⚠️ La edad debe estar entre 5 y 50 años.');
+
+  // Teléfono
+  if(!tel)         return alert2('⚠️ El teléfono celular es obligatorio.');
+  if(tel.length<10)return alert2('⚠️ El teléfono debe tener exactamente 10 dígitos.');
+
+  // Correo (opcional)
+  if(correo&&!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(correo))
+    return alert2('⚠️ El correo no es válido — debe tener @ y dominio (ej: usuario@gmail.com).');
+
+  // Foto
+  if(!fotoB64){
+    document.getElementById('fotoMsg').className='fmsg err';
+    document.getElementById('fdrop').classList.add('ferr');
+    document.getElementById('fdrop').scrollIntoView({behavior:'smooth',block:'center'});
     return;
   }
 
-  if (!dorsal)   return alert2('⚠️ Escribe un número de dorsal.');
-  if (!dorsalOk) return alert2('⚠️ El dorsal no está verificado o ya está ocupado.');
-  if (!pos)      return alert2('⚠️ Selecciona tu posición.');
-  if (!pie)      return alert2('⚠️ Selecciona tu pie dominante.');
-  if (!talla)    return alert2('⚠️ Selecciona tu talla de uniforme.');
-  if (!cnom)     return alert2('⚠️ El nombre del contacto de emergencia es obligatorio.');
-  if (!ctel)     return alert2('⚠️ El teléfono de emergencia es obligatorio.');
+  // Dorsal
+  if(!dorsal)  return alert2('⚠️ Escribe un número de dorsal.');
+  if(!dorsalOk)return alert2('⚠️ El dorsal no está verificado o ya está ocupado.');
 
-  const btn = document.getElementById('sbtn');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="sp"></span>ENVIANDO...';
-  document.getElementById('amsg').className = 'amsg';
+  // Chips
+  if(!pos)  return alert2('⚠️ Selecciona tu posición.');
+  if(!pie)  return alert2('⚠️ Selecciona tu pie dominante.');
+  if(!talla)return alert2('⚠️ Selecciona tu talla de uniforme.');
 
-  const payload = {
-    action: 'registro',
-    nombre, cedula,
-    fechaNac      : fn,
-    telefono      : tel,
-    correo        : g('correo'),
-    ciudad        : g('ciudad'),
-    dorsal,
-    posicion      : pos,
-    pie, talla,
-    nombreCamiseta: g('nomCam'),
-    contactoNombre: cnom,
-    contactoTel   : ctel,
-    contactoTelAlt: g('ctel2'),
-    fotoBase64    : fotoB64,
-    timestamp     : new Date().toISOString()
+  // Emergencia
+  if(!cnom)         return alert2('⚠️ El nombre del contacto de emergencia es obligatorio.');
+  if(!ctel)         return alert2('⚠️ El teléfono de emergencia es obligatorio.');
+  if(ctel.length<10)return alert2('⚠️ El teléfono de emergencia debe tener 10 dígitos.');
+  const ctel2=g('ctel2');
+  if(ctel2&&ctel2.length<10)return alert2('⚠️ El teléfono alternativo debe tener 10 dígitos.');
+
+  // Enviar
+  const btn=document.getElementById('sbtn');
+  btn.disabled=true;btn.innerHTML='<span class="sp"></span>ENVIANDO...';
+  document.getElementById('amsg').className='amsg';
+
+  const payload={
+    action:'registro',nombre,cedula,fechaNac:fn,telefono:tel,
+    correo,ciudad:g('ciudad'),dorsal,posicion:pos,pie,talla,
+    nombreCamiseta:g('nomCam'),contactoNombre:cnom,contactoTel:ctel,
+    contactoTelAlt:ctel2,fotoBase64:fotoB64,timestamp:new Date().toISOString()
   };
 
-  // ── Envío como form-urlencoded (único modo que funciona con no-cors) ──
-  // El campo "data" llega a Apps Script como e.parameter.data
-  fetch(SCRIPT_URL, {
-    method : 'POST',
-    mode   : 'no-cors',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body   : 'data=' + encodeURIComponent(JSON.stringify(payload))
+  fetch(SCRIPT_URL,{
+    method:'POST',mode:'no-cors',
+    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body:'data='+encodeURIComponent(JSON.stringify(payload))
   })
-  .then(() => {
-    // Con no-cors la respuesta es siempre "opaque" — llegamos aquí si no hay error de red
-    exito(nombre, dorsal, pos, talla);
-  })
-  .catch(err => {
-    btn.disabled = false;
-    btn.innerHTML = '⚽ REGISTRARME EN GALAZTIC FC';
+  .then(()=>exito(nombre,dorsal,pos,talla))
+  .catch(err=>{
+    btn.disabled=false;btn.innerHTML='⚽ REGISTRARME EN GALAZTIC FC';
     alert2('⚠️ Error de red. Verifica tu conexión e intenta de nuevo.');
     console.error(err);
   });
 }
 
-// ════════════════════════════════════════════════════
-// PANTALLA DE ÉXITO
-// ════════════════════════════════════════════════════
-function exito(nombre, dorsal, pos, talla) {
-  document.getElementById('fw').style.display = 'none';
-  const s = document.getElementById('succ');
-  s.classList.add('show');
-  document.getElementById('smsg').textContent =
-    nombre.split(' ')[0] + ', tu registro fue enviado. El cuerpo técnico te contactará pronto. 🌌⚽';
-  document.getElementById('res').innerHTML =
-    r('👤','Nombre', nombre)     +
-    r('🔢','Dorsal', '#'+dorsal) +
-    r('📍','Posición', pos)      +
-    r('👕','Talla', talla)       +
-    r('📸','Foto', '✅ Guardada en Drive');
-  s.scrollIntoView({ behavior: 'smooth' });
+/* ── ÉXITO ── */
+function exito(nombre,dorsal,pos,talla){
+  document.getElementById('fw').style.display='none';
+  const s=document.getElementById('succ');s.classList.add('show');
+  document.getElementById('smsg').textContent=
+    nombre.split(' ')[0]+', tu registro fue enviado con éxito. El cuerpo técnico te contactará pronto. 🌌⚽';
+  document.getElementById('res').innerHTML=
+    r('👤','Nombre',nombre)+r('🔢','Dorsal','#'+dorsal)+
+    r('📍','Posición',pos)+r('👕','Talla',talla)+r('📸','Foto','✅ Guardada en Drive');
+  s.scrollIntoView({behavior:'smooth'});
 }
-
-function r(e, l, v) {
-  return '<div class="rrow"><span>'+e+' '+l+'</span><span>'+v+'</span></div>';
-}
+function r(e,l,v){return '<div class="rrow"><span>'+e+' '+l+'</span><span>'+v+'</span></div>';}
 </script>
 </body>
 </html>
